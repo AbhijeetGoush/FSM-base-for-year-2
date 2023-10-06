@@ -30,7 +30,11 @@ namespace Player
         public override void LogicUpdate()
         {
             player.CheckForRun();
-
+            player.CheckForJump();
+            if(player.grounded == false)
+            {
+                player.DoGravity();
+            }
             base.LogicUpdate();
         }
 

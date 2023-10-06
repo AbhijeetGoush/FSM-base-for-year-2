@@ -1,20 +1,18 @@
-
 using Unity.VisualScripting.FullSerializer;
 using UnityEngine;
 namespace Player
 {
-    public class RunningState : State
+    public class JumpingState : State
     {
         // constructor
-        public RunningState(PlayerScript player, StateMachine sm) : base(player, sm)
+        public JumpingState(PlayerScript player, StateMachine sm) : base(player, sm)
         {
         }
 
         public override void Enter()
         {
             base.Enter();
-            player.xv = player.runSpeed;
-            
+            player.yv = 20;
         }
 
         public override void Exit()
@@ -30,16 +28,21 @@ namespace Player
         public override void LogicUpdate()
         {
             base.LogicUpdate();
-            player.CheckForStand();
-            player.CheckForJump();
-            if(player.grounded == false)
+            Debug.Log("yv=" + player.yv);
+
+            if (player.yv <= -1)
             {
-                player.DoGravity();
+                if (player.grounded == true)
+                {
+                    sm.ChangeState(player.standingState);
+                }
+                //player.CheckForLand();
             }
         }
 
         public override void PhysicsUpdate()
         {
+            player.DoJump();
             base.PhysicsUpdate();
         }
     }

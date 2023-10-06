@@ -21,7 +21,7 @@ namespace Player
             CurrentState.Exit();
 
             LastState = CurrentState;
-            CurrentState = newState;
+            CurrentState = newState; 
             newState.Enter();
 
             
